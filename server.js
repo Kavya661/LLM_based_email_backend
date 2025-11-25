@@ -21,7 +21,9 @@ const PORT = process.env.PORT || 5001;
 // Middleware
 app.use(helmet());
 app.use(cors({
-  origin: process.env.CLIENT_URL || ['http://localhost:5173', 'http://localhost:5174'],
+  origin: process.env.CLIENT_URL || ['llm-based-email-frontend.vercel.app',
+'llm-based-email-frontend-git-main-kavyas-projects-30bd8e93.vercel.app',
+'llm-based-email-frontend-oom4jmubh-kavyas-projects-30bd8e93.vercel.app'],
   credentials: true
 }));
 app.use(morgan('combined'));
