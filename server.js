@@ -21,7 +21,7 @@ const PORT = process.env.PORT || 5001;
 // Middleware
 app.use(helmet());
 app.use(cors({
-  origin: process.env.CLIENT_URL || ['llm-based-email-frontend.vercel.app'
+  origin: process.env.CLIENT_URL || ['https://llm-based-email-frontend.vercel.app'
 ],
   credentials: true
 }));
