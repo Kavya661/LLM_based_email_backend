@@ -20,9 +20,14 @@ const PORT = process.env.PORT || 5001;
 
 // Middleware
 app.use(helmet());
+const allowedOrigins = [
+  'https://llm-based-email-frontend.vercel.app',
+  'https://llm-based-email-frontend-git-main-kavyas-projects-30bd8e93.vercel.app',
+  'https://llm-based-email-frontend-oom4jmubh-kavyas-projects-30bd8e93.vercel.app'
+];
+
 app.use(cors({
-  origin: process.env.CLIENT_URL || ['https://llm-based-email-frontend.vercel.app'
-],
+  origin: allowedOrigins,
   credentials: true
 }));
 app.use(morgan('combined'));
