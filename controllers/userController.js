@@ -47,11 +47,11 @@ exports.register = async (req, res) => {
 
     // Send token in cookie
     res.cookie('token', token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'strict',
-      maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
-    });
+  httpOnly: true,
+  secure: true,        // you're using HTTPS on Render
+  sameSite: 'none',    // REQUIRED for cross-site (Vercel -> Render)
+  maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
+});
 
     res.status(201).json({
       user: {
@@ -95,13 +95,12 @@ exports.login = async (req, res) => {
     const token = generateToken(user._id);
 
     // Send token in cookie
-    res.cookie('token', token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'strict',
-      maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
-    });
-
+   res.cookie('token', token, {
+  httpOnly: true,
+  secure: true,        // you're using HTTPS on Render
+  sameSite: 'none',    // REQUIRED for cross-site (Vercel -> Render)
+  maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
+});
     res.json({
       user: {
         id: user._id,
@@ -130,7 +129,11 @@ exports.getProfile = async (req, res) => {
 exports.logout = async (req, res) => {
   try {
     // Clear the token cookie
-    res.clearCookie('token');
+    res.clearCookie('token', {
+  httpOnly: true,
+  secure: true,
+  sameSite: 'none'
+});
     res.json({ message: 'Logged out successfully' });
   } catch (error) {
     console.error('Logout error:', error);
@@ -142,7 +145,11 @@ exports.logout = async (req, res) => {
 exports.logoutAll = async (req, res) => {
   try {
     // Clear the token cookie
-    res.clearCookie('token');
+    res.clearCookie('token', {
+  httpOnly: true,
+  secure: true,
+  sameSite: 'none'
+});
     res.json({ message: 'Logged out from all devices successfully' });
   } catch (error) {
     console.error('Logout all error:', error);
